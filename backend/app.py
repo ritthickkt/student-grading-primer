@@ -31,7 +31,8 @@ def create_student():
     return: The created student if successful
     """
     student_data = request.json
-    new_student = db.insert_student(student_data["name"], student_data["course"], student_data["mark"])
+    mark = student_data.get("mark", 0)
+    new_student = db.insert_student(student_data["name"], student_data["course"], mark)
     return jsonify(new_student), 200
 
 @app.route("/students/<int:student_id>", methods=["PUT"])
