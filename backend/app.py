@@ -32,7 +32,7 @@ def create_student():
     """
     student_data = request.json
     new_student = db.insert_student(student_data["name"], student_data["course"], student_data["mark"])
-    return jsonify(new_student), 201
+    return jsonify(new_student), 200
 
 @app.route("/students/<int:student_id>", methods=["PUT"])
 def update_student(student_id):
@@ -70,7 +70,7 @@ def get_stats():
     """
     students = db.get_all_students()
     if len(students) == 0:
-      return jsonify({"Count": 0, "Average": 0, "Minimum": 0, "Maximum": 0}), 200
+      return jsonify({"count": 0, "average": 0, "min": 0, "max": 0}), 200
     count = 0
     min = students[0]["mark"]
     max = students[0]["mark"]
@@ -83,7 +83,7 @@ def get_stats():
         if student["mark"] > max:
             max = student["mark"]
     avg = total_mark/count
-    return jsonify({"Count": count, "Average": avg, "Minimum": min, "Maximum": max}), 200
+    return jsonify({"count": count, "average": avg, "min": min, "max": max}), 200
 
 
 @app.route("/")
