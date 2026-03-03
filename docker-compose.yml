@@ -1,7 +1,6 @@
 services:
   db:
     image: postgres:15
-    
     environment:
       POSTGRES_USER: marksuser
       POSTGRES_PASSWORD: markspass

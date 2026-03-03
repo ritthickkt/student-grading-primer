@@ -45,8 +45,8 @@ def update_student(student_id):
     """
     student_data = request.json
     updated_student = db.update_student(student_id, student_data["name"], student_data["course"], student_data["mark"])
-    if updated_student is None: 
-      return jsonify(updated_student), 404    
+    if updated_student is None:
+      return jsonify(updated_student), 404
     return jsonify(updated_student), 200
 
 
@@ -57,20 +57,20 @@ def delete_student(student_id):
     return: The deleted student
     """
     deleted_student = db.delete_student(student_id)
-    if deleted_student is None: 
-      return jsonify(deleted_student), 404    
+    if deleted_student is None:
+      return jsonify(deleted_student), 404
     return jsonify(deleted_student), 200
 
 
 @app.route("/stats")
 def get_stats():
     """
-    Route to show the stats of all student marks 
+    Route to show the stats of all student marks
     return: An object with the stats (count, average, min, max)
     """
     students = db.get_all_students()
     if len(students) == 0:
-      return jsonify({"Count": 0, "Average": 0, "Minimum": 0, "Maximum": 0}), 200  
+      return jsonify({"Count": 0, "Average": 0, "Minimum": 0, "Maximum": 0}), 200
     count = 0
     min = students[0]["mark"]
     max = students[0]["mark"]
@@ -82,7 +82,7 @@ def get_stats():
             min = student["mark"]
         if student["mark"] > max:
             max = student["mark"]
-    avg = total_mark/count    
+    avg = total_mark/count
     return jsonify({"Count": count, "Average": avg, "Minimum": min, "Maximum": max}), 200
 
 
